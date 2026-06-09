@@ -2,6 +2,7 @@
 outputs/
 work/
 logs/
+outputs-*.png
 *.log
 
 # Windows/editor noise

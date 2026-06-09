@@ -68,6 +68,14 @@ For Lingxi-specific work:
 Use $codex-pet-workflow and the Lingxi example to add a depleted state.
 ```
 
+## Lingxi Stage Diagram / 灵汐阶段图示意
+
+![Lingxi stage diagram](assets/lingxi-stage-diagram.svg)
+
+This diagram is a schematic example, not a final pet atlas. It shows how a character can keep the same identity anchors while changing posture, outfit damage, expression, and motion energy across runtime states.
+
+这张图是阶段设计示意，不是最终 pet 图集。它表达的是：角色锚点保持一致，但姿态、服装破损、表情和动作能量会随着运行状态逐步变化。
+
 ## 使用方式
 
 当你需要制作、修复、扩展或安装 pet 时，可以这样说：
