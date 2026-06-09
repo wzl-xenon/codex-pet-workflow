@@ -32,34 +32,78 @@ It focuses on:
 
 ## Install
 
-Clone this repository, then copy the skill folder into your Codex skills directory.
+Codex discovers local skills from:
+
+- `$CODEX_HOME/skills`, when `CODEX_HOME` is set.
+- `%USERPROFILE%\.codex\skills`, on Windows when `CODEX_HOME` is not set.
+
+Copy the skill folder itself, not the whole repository. The installed path should end with:
+
+```text
+<skills-root>/codex-pet-workflow/SKILL.md
+```
 
 PowerShell:
 
 ```powershell
-Copy-Item -Recurse .\skills\codex-pet-workflow "$env:USERPROFILE\.codex\skills\codex-pet-workflow"
+git clone git@github.com:wzl-xenon/codex-pet-workflow.git
+cd codex-pet-workflow
+
+$skillsRoot = if ($env:CODEX_HOME) {
+  Join-Path $env:CODEX_HOME "skills"
+} else {
+  Join-Path $env:USERPROFILE ".codex\skills"
+}
+
+$target = Join-Path $skillsRoot "codex-pet-workflow"
+New-Item -ItemType Directory -Force $target | Out-Null
+Copy-Item -Recurse -Force ".\skills\codex-pet-workflow\*" $target
+
+Test-Path (Join-Path $target "SKILL.md")
 ```
 
-Then restart Codex if the skill list does not refresh automatically.
+The final command should print `True`. Start a new Codex thread or restart Codex if the skill list does not refresh automatically.
 
 ## 安装
 
-克隆这个仓库后，把 skill 目录复制到本机 Codex skills 目录。
+Codex 会从以下目录发现本地 skills：
+
+- 设置了 `CODEX_HOME` 时：`$CODEX_HOME/skills`
+- Windows 默认路径：`%USERPROFILE%\.codex\skills`
+
+注意：复制的是 skill 文件夹本身，不是整个仓库。安装后应该能看到：
+
+```text
+<skills-root>/codex-pet-workflow/SKILL.md
+```
 
 PowerShell：
 
 ```powershell
-Copy-Item -Recurse .\skills\codex-pet-workflow "$env:USERPROFILE\.codex\skills\codex-pet-workflow"
+git clone git@github.com:wzl-xenon/codex-pet-workflow.git
+cd codex-pet-workflow
+
+$skillsRoot = if ($env:CODEX_HOME) {
+  Join-Path $env:CODEX_HOME "skills"
+} else {
+  Join-Path $env:USERPROFILE ".codex\skills"
+}
+
+$target = Join-Path $skillsRoot "codex-pet-workflow"
+New-Item -ItemType Directory -Force $target | Out-Null
+Copy-Item -Recurse -Force ".\skills\codex-pet-workflow\*" $target
+
+Test-Path (Join-Path $target "SKILL.md")
 ```
 
-如果 Codex 没有立刻识别新 skill，重启 Codex 即可。
+最后一行应该输出 `True`。如果当前 Codex 没有立刻识别新 skill，开一个新线程或重启 Codex。
 
 ## Usage
 
 Use the skill when asking Codex to make, repair, extend, or install a pet:
 
 ```text
-Use $codex-pet-workflow to turn this character image into a Codex pet.
+Use $codex-pet-workflow with this character image. First confirm the character identity, then plan the Codex pet atlas and install path.
 ```
 
 For Lingxi-specific work:
@@ -70,18 +114,18 @@ Use $codex-pet-workflow and the Lingxi example to add a depleted state.
 
 ## Lingxi Stage Diagram / 灵汐阶段图示意
 
-![Lingxi stage diagram](assets/lingxi-stage-diagram.svg)
+![Lingxi stage diagram](assets/lingxi-stage-real.png)
 
-This diagram is a schematic example, not a final pet atlas. It shows how a character can keep the same identity anchors while changing posture, outfit damage, expression, and motion energy across runtime states.
+This high-resolution diagram uses real Lingxi production artwork. It is not the final pet atlas; it shows how one character identity can move through runtime states while preserving the same visual anchors.
 
-这张图是阶段设计示意，不是最终 pet 图集。它表达的是：角色锚点保持一致，但姿态、服装破损、表情和动作能量会随着运行状态逐步变化。
+这张高清图使用真实灵汐制作素材。它不是最终 pet 图集，而是展示同一个角色如何在保持身份锚点的前提下，随运行状态进入标准、小破、大破和终了。
 
 ## 使用方式
 
 当你需要制作、修复、扩展或安装 pet 时，可以这样说：
 
 ```text
-使用 $codex-pet-workflow，把这张角色图做成 Codex pet。
+使用 $codex-pet-workflow，参考这张角色图。先确认角色形象，再规划 Codex pet 图集和安装路径。
 ```
 
 如果是灵汐相关任务：
