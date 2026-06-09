@@ -1,0 +1,17 @@
+# Local generated outputs
+outputs/
+work/
+logs/
+*.log
+
+# Windows/editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Python/tool caches
+__pycache__/
+*.pyc
+.pytest_cache/

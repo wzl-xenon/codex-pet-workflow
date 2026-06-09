@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Pet Workflow"
+  short_description: "Build Codex pets from character images."
+  default_prompt: "Use $codex-pet-workflow to turn a character image into a Codex pet."
